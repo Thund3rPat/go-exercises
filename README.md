@@ -2,4 +2,7 @@
 This repository contains tools reimplemented in Golang for exercise purposes.
 
 Finished Tools:
-- A minimal system info fetcher written in Go
+- go-system-info: A minimal system info fetcher
+
+Unfinished Tools:
+- go-grep: A scaled-down version of grep

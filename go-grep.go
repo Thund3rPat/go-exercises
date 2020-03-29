@@ -2,24 +2,28 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
 
-	var keyword string = os.Args[1]
+	var searchword string = os.Args[1]
+	var location string = os.Args[2]
 
-	// Open CWD
-	cwd, err := os.Open(".")
+	// Open location
+	file, err := os.Open(location)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer cwd.Close()
+	defer file.Close()
 
-	// Get file names
-	files, err := cwd.Readdirnames(0)
-	if err != nil {
+	//
+	/* Get file names
+	 files, err := cwd.Readdirnames(0)
+	 if err != nil {
 		log.Fatal(err)
 	}
 
@@ -29,15 +33,18 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+	*/
 
-		// Read file line by line
-		scanner := bufio.NewScanner(current)
-		for scanner.Scan() {
-			// todo: Search for keyword, print if there is a success
+	// Read file line by line
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		if strings.Contains(scanner.Text(), searchword) {
+			fmt.Printf("%v: %v\n", file.Name(), scanner.Text())
 		}
+	}
 
-		if err := scanner.Err(); err != nil {
-			log.Fatal(err)
-		}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+
 	}
 }

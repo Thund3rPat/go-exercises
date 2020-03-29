@@ -1,8 +1,18 @@
 # go-re-implementations
-This repository contains tools reimplemented in Golang for exercise purposes.
+This repository is collection of tools implemented in Golang for exercise purposes.
 
-Finished Tools:
+## Finished Tools:
 - go-system-info: A minimal system info fetcher
 
-Unfinished Tools:
+---
+## Unfinished Tools:
 - go-grep: A scaled-down version of grep
+
+---
+## Planned:
+- CLI-Translator with GoogleTranslate
+- Video-Downloader
+- TUI-Bluetooth-Connect-Manager
+- minimal Chat-Client/Server
+- Virus Signature Checker
+- DES

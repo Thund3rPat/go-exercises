@@ -1,4 +1,4 @@
-# go-re-implementations
+# go-tools-collection
 This repository is collection of tools implemented in Golang for exercise purposes.
 
 ## Finished Tools:

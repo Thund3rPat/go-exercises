@@ -1,5 +1,6 @@
-# go-tools-collection
-This repository is collection of tools implemented in Golang for exercise purposes.
+# Collection of Go-Programs
+This repository is collection of tools implemented in Golang for exercise purposes. 
+Many programs were written while learning Go and may be not clean. 
 
 ## Finished Tools:
 - go-system-info: A minimal system info fetcher

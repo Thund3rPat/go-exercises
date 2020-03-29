@@ -16,3 +16,4 @@ This repository is collection of tools implemented in Golang for exercise purpos
 - minimal Chat-Client/Server
 - Virus Signature Checker
 - DES
+- some Games

@@ -15,7 +15,6 @@ GOPATH: yourgopath
 Go version: go1.14.1
 ```
 
----
 ## In Progress
 ### go-grep
 A scaled-down version of grep

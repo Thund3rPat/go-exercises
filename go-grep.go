@@ -6,12 +6,21 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
 var pattern string
-var filepath string
+var fpath string
 var caseinsensitive = flag.Bool("i", false, "Set this flag for case-insensitive-search")
+var recursive = flag.Bool("r", false, "Set this flag for recursive-search")
+
+// Outsource error handling
+func check(e error) {
+	if e != nil {
+		log.Fatal(e)
+	}
+}
 
 // Parse Flags and arguments
 func argparse() {
@@ -23,12 +32,16 @@ func argparse() {
 		log.Fatal("No File Path given")
 	} else {
 		pattern = flag.Arg(0)
-		filepath = flag.Arg(1)
+		fpath = flag.Arg(1)
 	}
 }
 
 // Search pattern in file
-func searchfile(file *os.File) {
+func searchfile(f string) {
+	file, err := os.Open(f)
+	check(err)
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		currentline := scanner.Text()
@@ -49,12 +62,20 @@ func searchfile(file *os.File) {
 func main() {
 	argparse()
 
-	// Open filepath
-	file, err := os.Open(filepath)
-	if err != nil {
-		log.Fatal(err)
+	if *recursive {
+		filelist := make([]string, 0)
+		e := filepath.Walk(fpath, func(path string, info os.FileInfo, err error) error {
+			check(err)
+			if !info.IsDir() {
+				filelist = append(filelist, path)
+			}
+			return nil
+		})
+		check(e)
+		for _, v := range filelist {
+			searchfile(v)
+		}
+	} else {
+		searchfile(fpath)
 	}
-	defer file.Close()
-
-	searchfile(file)
 }

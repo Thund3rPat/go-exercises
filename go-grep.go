@@ -2,49 +2,55 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
 	"strings"
 )
 
-func main() {
+var pattern string
+var filepath string
+var caseinsensitive = flag.Bool("i", false, "Set this flag for case-insensitive-search")
 
-	var searchword string = os.Args[1]
-	var location string = os.Args[2]
+// Parse Flags and arguments
+func argparse() {
+	flag.Parse()
 
-	// Open location
-	file, err := os.Open(location)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	//
-	/* Get file names
-	 files, err := cwd.Readdirnames(0)
-	 if err != nil {
-		log.Fatal(err)
+	if flag.NArg() == 0 {
+		log.Fatal("No arguments given!")
+	} else if flag.Arg(1) == "" {
+		log.Fatal("No File Path given")
+	} else {
+		pattern = flag.Arg(0)
+		filepath = flag.Arg(1)
 	}
 
-	// Open files successively
-	for i := 0; i < len(files); i++ {
-		current, err := os.Open(files[i])
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/
+}
 
-	// Read file line by line
+// Search pattern in file
+func searchfile(file *os.File) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), searchword) {
+		if strings.Contains(string(scanner.Text()), pattern) {
 			fmt.Printf("%v: %v\n", file.Name(), scanner.Text())
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-
+		log.Fatalln("Error reading file: ", err)
 	}
+}
+
+func main() {
+	argparse()
+
+	// Open filepath
+	file, err := os.Open(filepath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	searchfile(file)
 }

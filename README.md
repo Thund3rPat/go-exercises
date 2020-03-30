@@ -1,6 +1,6 @@
 # Collection of Go-Programs
 This repository is collection of tools implemented in Golang for exercise purposes. 
-Many programs were written while learning Go and may be not clean. 
+Many programs were written while learning Go and may not be clean. 
 
 ## Finished Tools:
 ### go-system-info

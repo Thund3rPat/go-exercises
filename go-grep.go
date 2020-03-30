@@ -25,14 +25,18 @@ func argparse() {
 		pattern = flag.Arg(0)
 		filepath = flag.Arg(1)
 	}
-
 }
 
 // Search pattern in file
 func searchfile(file *os.File) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		if strings.Contains(string(scanner.Text()), pattern) {
+		currentline := scanner.Text()
+
+		if *caseinsensitive {
+			currentline, pattern = strings.ToLower(currentline), strings.ToLower(pattern)
+		}
+		if strings.Contains(currentline, pattern) {
 			fmt.Printf("%v: %v\n", file.Name(), scanner.Text())
 		}
 	}

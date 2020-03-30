@@ -27,7 +27,6 @@ $ ./go-grep [flags] [pattern] [file]
 - [ ] add Wildcard functionality in filepath like *
 - [ ] add possibility to define multiple files
 
----
 ## Planned:
 - CLI-Translator with GoogleTranslate
 - Video-Downloader

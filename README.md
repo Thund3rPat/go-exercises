@@ -26,6 +26,7 @@ $ ./go-grep [flags] [pattern] [file]
 - [ ] add Boyer-Moore-Algorithm
 - [ ] add Wildcard functionality in filepath like *
 - [ ] add possibility to define multiple files
+- [ ] move to own repo
 
 ## Planned:
 - CLI-Translator with GoogleTranslate

@@ -31,13 +31,14 @@ $ ./go-grep [flags] [pattern] [file]
 ### go-mp
 A minimal Music Player
 ```
-$ ./go-mp [file]
+$ ./go-mp [file] [file] ...
 ```
 - [x] play mp3 files
 - [x] add wav support
 - [ ] add flac support
 - [ ] Show time or add progressbar
 - [x] possibilty to play multiple files successively
+- [ ] play whole directory with -playlist flag 
 - [ ] create own repo for this tool
 
 ## Planned:

@@ -34,10 +34,10 @@ A minimal Music Player
 $ ./go-mp [file]
 ```
 - [x] play mp3 files
-- [ ] add wav support
+- [x] add wav support
 - [ ] add flac support
 - [ ] Show time or add progressbar
-- [ ] possibilty do play multiple files successively
+- [x] possibilty to play multiple files successively
 - [ ] create own repo for this tool
 
 ## Planned:

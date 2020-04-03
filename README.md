@@ -42,7 +42,6 @@ $ ./go-mp [file]
 
 ## Planned:
 - CLI-Translator with GoogleTranslate
-- minimal Musicplayer
 - Video-Downloader
 - TUI-Bluetooth-Connect-Manager
 - minimal Chat-Client/Server

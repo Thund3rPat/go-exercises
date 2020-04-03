@@ -23,10 +23,22 @@ $ ./go-grep [flags] [pattern] [file]
 ```
 - [x] case-insensitive search with -i
 - [x] recursiv search with -r
-- [ ] add Boyer-Moore-Algorithm
+- [ ] implement Boyer-Moore-Algorithm
 - [ ] add Wildcard functionality in filepath like *
 - [ ] add possibility to define multiple files
-- [ ] move to own repo
+- [ ] create own repo for this tool
+
+### go-mp
+A minimal Music Player
+```
+$ ./go-mp [file]
+```
+- [x] play mp3 files
+- [ ] add wav support
+- [ ] add flac support
+- [ ] Show time or add progressbar
+- [ ] possibilty do play multiple files successively
+- [ ] create own repo for this tool
 
 ## Planned:
 - CLI-Translator with GoogleTranslate

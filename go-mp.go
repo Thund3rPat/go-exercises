@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
 	"path"
+	"path/filepath"
 	"time"
 
 	"github.com/faiface/beep"
@@ -13,18 +15,27 @@ import (
 	"github.com/faiface/beep/wav"
 )
 
+var directory = flag.Bool("d", false, "Enable this flag to open a directory")
+
+// Outsource error handling
+func check(e error) {
+	if e != nil {
+		log.Fatal(e)
+	}
+}
+
 func play(song string) {
 	var streamer beep.StreamSeekCloser
 	var format beep.Format
 	var err error
 
+	// Open Song file and get extension
 	file, err := os.Open(song)
 	filetype := path.Ext(song)
-	if err != nil {
-		log.Fatal(err)
-	}
+	check(err)
 	defer file.Close()
 
+	// Check for extension and choose right decoder
 	switch filetype {
 	case ".mp3":
 		streamer, format, err = mp3.Decode(file)
@@ -33,13 +44,13 @@ func play(song string) {
 	default:
 		log.Fatal("File not supported!")
 	}
-	if err != nil {
-		log.Fatal(err)
-	}
+	check(err)
 	defer streamer.Close()
 
+	// Init Speaker
 	speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
 
+	// Play and wait until song is finished
 	done := make(chan bool)
 	speaker.Play(beep.Seq(streamer, beep.Callback(func() {
 		done <- true
@@ -47,14 +58,45 @@ func play(song string) {
 
 	<-done
 }
+func playDirectory() []string {
+	var listofsongs []string
 
-func main() {
-	if len(os.Args) < 2 {
-		log.Fatal("No file specified")
+	// Open directory
+	files, err := os.Open(flag.Arg(0))
+	check(err)
+	defer files.Close()
+
+	// Get slice of name in directory
+	names, err := files.Readdirnames(0)
+	check(err)
+
+	// append path to listofsongs
+	for _, v := range names {
+		listofsongs = append(listofsongs, filepath.Join(flag.Arg(0), v))
 	}
 
-	var songs []string = os.Args[1:]
+	return listofsongs
+}
 
+func main() {
+	var songs []string
+
+	flag.Parse()
+
+	if flag.NArg() == 0 {
+		log.Fatal("No files to be played specified!")
+	}
+
+	// Check if -d flag is set
+	if *directory {
+		// Get songlist from directory
+		songs = playDirectory()
+	} else {
+		// Get songlist from Parameters
+		songs = flag.Args()
+	}
+
+	// Play
 	for _, song := range songs {
 		fmt.Println("Currently Playing: ", song)
 		play(song)
